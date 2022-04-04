@@ -1,2 +1,3 @@
 rootProject.name = 'scaling-disco'
+include 'scaling-disco-common'
 

@@ -1,6 +1,6 @@
 root = true
 
-[{*.java, *.xml}]
+[{*.java, *.xml, *.gradle}]
 charset = utf-8
 indent_style = space
 indent_size = 4
