@@ -16,6 +16,9 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
 
+server:
+  port: 9001
+
 mybatis-plus:
   global-config:
     banner: false
@@ -23,3 +26,4 @@ mybatis-plus:
       id-type: assign_id
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

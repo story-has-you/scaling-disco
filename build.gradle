@@ -18,7 +18,8 @@ ext {
     lib = [
         'hutool-all'  : 'cn.hutool:hutool-all:5.8.0.M2',
         'guava'       : 'com.google.guava:guava:31.1-jre',
-        "mybatis-plus": 'com.baomidou:mybatis-plus-boot-starter:3.5.1'
+        'mybatis-plus': 'com.baomidou:mybatis-plus-boot-starter:3.5.1',
+        'knife4j'     : 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.3'
     ]
 }
 
