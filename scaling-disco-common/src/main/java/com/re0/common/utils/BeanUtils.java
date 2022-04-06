@@ -1,8 +1,8 @@
 package com.re0.common.utils;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.re0.common.toolkit.StringPool;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.util.Assert;

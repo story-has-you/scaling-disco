@@ -1,7 +1,7 @@
 package com.re0.common.utils;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
-import com.storyhasyou.kratos.toolkit.DatePattern;
+import com.re0.common.toolkit.DatePattern;
 
 import java.time.Instant;
 import java.time.LocalDate;

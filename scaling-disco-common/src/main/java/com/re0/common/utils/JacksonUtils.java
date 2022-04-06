@@ -6,14 +6,8 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -21,9 +15,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import com.storyhasyou.kratos.base.BaseEntity;
-import com.storyhasyou.kratos.exceptions.BusinessException;
-import com.storyhasyou.kratos.toolkit.DatePattern;
+import com.re0.common.exceptions.BusinessException;
+import com.re0.common.toolkit.DatePattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.lang.NonNull;
@@ -47,7 +40,6 @@ import java.util.Set;
 @Slf4j
 public class JacksonUtils {
 
-    private static final String[] IGNORE_FIELD = {"deleted"};
     private static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
@@ -476,10 +468,6 @@ public class JacksonUtils {
             OBJECT_MAPPER.setPropertyNamingStrategy(propertyNamingStrategy);
         }
         // 设置过滤字段
-        SimpleBeanPropertyFilter fieldFilter = SimpleBeanPropertyFilter.serializeAllExcept(IGNORE_FIELD);
-        SimpleFilterProvider filterProvider = new SimpleFilterProvider().addFilter("defaultValue", fieldFilter);
-        OBJECT_MAPPER.setFilterProvider(filterProvider).addMixIn(BaseEntity.class, PropertyFilterMixIn.class);
-
         SimpleModule simpleModule = new SimpleModule();
         // 添加对长整型的转换关系
         ToStringSerializer stringSerializer = ToStringSerializer.instance;

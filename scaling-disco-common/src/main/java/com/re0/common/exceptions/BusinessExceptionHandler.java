@@ -1,8 +1,8 @@
 package com.re0.common.exceptions;
 
-import com.storyhasyou.kratos.result.Result;
-import com.storyhasyou.kratos.result.ResultCode;
-import com.storyhasyou.kratos.toolkit.StringPool;
+import com.re0.common.result.Result;
+import com.re0.common.result.ResultCode;
+import com.re0.common.toolkit.StringPool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
