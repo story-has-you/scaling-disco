@@ -17,4 +17,13 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     public User selectByUsername(String username) {
         return lambdaQuery().eq(User::getUsername, username).oneOpt().orElseThrow(() -> new BusinessException("用户不存在"));
     }
+
+    @Override
+    public boolean save(User entity) {
+        boolean exists = exists(User::getUsername, entity.getUsername());
+        if (exists) {
+            throw new BusinessException("用户已存在");
+        }
+        return super.save(entity);
+    }
 }
