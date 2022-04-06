@@ -34,6 +34,7 @@ public class BusinessExceptionHandler {
      */
     @ExceptionHandler(BusinessException.class)
     public Result<?> businessException(BusinessException ex) {
+        log.error(StringPool.EMPTY, ex);
         return Result.error(ex.getCode(), ex.getMessage());
     }
 

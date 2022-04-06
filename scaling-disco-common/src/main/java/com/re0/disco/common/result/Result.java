@@ -3,6 +3,7 @@ package com.re0.disco.common.result;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 import com.re0.disco.common.exceptions.BusinessException;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.function.Supplier;
  * @param <T> the type parameter
  * @author fangxi 通用返回对象
  */
+@Data
 @SuppressWarnings("all")
 public class Result<T> implements Serializable {
     @JsonIgnore
@@ -192,15 +194,6 @@ public class Result<T> implements Serializable {
     }
 
     /**
-     * Sets ok.
-     *
-     * @param ok the ok
-     */
-    public void setOk(Boolean ok) {
-        this.ok = ok;
-    }
-
-    /**
      * Service data t.
      *
      * @return the t
@@ -258,51 +251,6 @@ public class Result<T> implements Serializable {
         if (isOk()) {
             consumer.accept(this.data);
         }
-    }
-
-    /**
-     * Gets status.
-     *
-     * @return the status
-     */
-    public Integer getStatus() {
-        return status;
-    }
-
-    /**
-     * Sets status.
-     *
-     * @param status the status
-     */
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    /**
-     * Gets message.
-     *
-     * @return the message
-     */
-    public String getMessage() {
-        return message;
-    }
-
-    /**
-     * Sets message.
-     *
-     * @param message the message
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /**
-     * Sets data.
-     *
-     * @param data the data
-     */
-    public void setData(T data) {
-        this.data = data;
     }
 
 }

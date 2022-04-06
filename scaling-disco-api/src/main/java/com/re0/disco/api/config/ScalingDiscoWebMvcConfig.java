@@ -11,17 +11,12 @@ import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * @author fangxi created by 2022/4/6
  */
-@SpringBootConfiguration
 @EnableWebMvc
+@SpringBootConfiguration
 public class ScalingDiscoWebMvcConfig implements WebMvcConfigurer {
     /**
      * 跨域配置
