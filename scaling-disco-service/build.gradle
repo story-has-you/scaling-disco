@@ -2,5 +2,9 @@ dependencies {
     implementation project(":scaling-disco-common")
     implementation project(":scaling-disco-domain")
     implementation "${lib.'mybatis-plus'}"
+    implementation "${lib.'hutool-all'}"
+    implementation "${lib.'guava'}"
     runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
 }

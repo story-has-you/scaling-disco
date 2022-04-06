@@ -8,9 +8,6 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author fangxi created by 2022/4/6
- */
-
-/**
  * 角色表
  */
 @Data

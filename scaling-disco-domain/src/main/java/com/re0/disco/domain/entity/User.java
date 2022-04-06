@@ -3,19 +3,19 @@ package com.re0.disco.domain.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.re0.disco.common.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 /**
  * @author fangxi created by 2022/4/6
- */
-
-/**
  * 系统用户
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_user")
 public class User extends BaseEntity {

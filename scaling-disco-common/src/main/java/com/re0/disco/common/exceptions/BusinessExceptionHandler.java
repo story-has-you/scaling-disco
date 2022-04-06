@@ -57,6 +57,7 @@ public class BusinessExceptionHandler {
      */
     @ExceptionHandler(RuntimeException.class)
     public Result<?> runtimeException(RuntimeException ex) {
+        log.error(StringPool.EMPTY, ex);
         return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
     }
 
