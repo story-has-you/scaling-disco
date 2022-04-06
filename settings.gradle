@@ -1,4 +1,5 @@
 rootProject.name = 'scaling-disco'
 include 'scaling-disco-common'
-include 'scaling-disco-service'
 include 'scaling-disco-domain'
+include 'scaling-disco-service'
+include 'scaling-disco-api'

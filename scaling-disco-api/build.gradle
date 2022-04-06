@@ -1,0 +1,13 @@
+plugins {
+    id 'org.springframework.boot'
+}
+
+
+dependencies {
+    implementation project(":scaling-disco-common")
+    implementation project(":scaling-disco-domain")
+    implementation project(":scaling-disco-service")
+    implementation "${lib.'mybatis-plus'}"
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+}

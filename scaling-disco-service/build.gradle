@@ -2,4 +2,5 @@ dependencies {
     implementation project(":scaling-disco-common")
     implementation project(":scaling-disco-domain")
     implementation "${lib.'mybatis-plus'}"
+    runtimeOnly 'mysql:mysql-connector-java'
 }
