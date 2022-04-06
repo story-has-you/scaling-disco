@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(":scaling-disco-common")
+    implementation project(":scaling-disco-domain")
+    implementation "${lib.'mybatis-plus'}"
+}

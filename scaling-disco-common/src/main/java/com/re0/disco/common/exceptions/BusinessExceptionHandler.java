@@ -1,0 +1,113 @@
+package com.re0.disco.common.exceptions;
+
+import com.re0.disco.common.result.Result;
+import com.re0.disco.common.result.ResultCode;
+import com.re0.disco.common.toolkit.StringPool;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
+
+/**
+ * The type Business exception handler.
+ *
+ * @author fangxi created by 2020/6/17
+ */
+@Slf4j
+@RestControllerAdvice
+public class BusinessExceptionHandler {
+
+
+    /**
+     * Business exception result.
+     *
+     * @param ex the ex
+     * @return the result
+     */
+    @ExceptionHandler(BusinessException.class)
+    public Result<?> businessException(BusinessException ex) {
+        return Result.error(ex.getCode(), ex.getMessage());
+    }
+
+    /**
+     * 参数错误
+     *
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler({IllegalStateException.class, IllegalArgumentException.class})
+    public Result<?> illegalException(RuntimeException ex) {
+        log.error(StringPool.EMPTY, ex);
+        return Result.error(ResultCode.FAILURE, ex.getMessage());
+    }
+
+    /**
+     * RuntimeException result.
+     *
+     * @param ex the ex
+     * @return the result
+     */
+    @ExceptionHandler(RuntimeException.class)
+    public Result<?> runtimeException(RuntimeException ex) {
+        return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+    /**
+     * Method argument not valid exception result.
+     *
+     * @param ex the ex
+     * @return the result
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        BindingResult bindingResult = ex.getBindingResult();
+        String msg = bindingResult
+                .getFieldErrors()
+                .stream()
+                .map(FieldError::getDefaultMessage)
+                .distinct()
+                .collect(Collectors.joining(StringPool.COMMA));
+        return Result.error(HttpStatus.BAD_REQUEST.value(), msg);
+    }
+
+    /**
+     * Bind exception result.
+     *
+     * @param ex the ex
+     * @return the result
+     */
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result<?> bindException(BindException ex) {
+        String msg = ex.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .distinct()
+                .collect(Collectors.joining(StringPool.COMMA));
+        return Result.error(HttpStatus.BAD_REQUEST.value(), msg);
+    }
+
+
+    /**
+     * Handler exception result.
+     *
+     * @param ex the ex
+     * @return the result
+     */
+    @ExceptionHandler(Exception.class)
+    public Result<?> handlerException(Exception ex) {
+        log.error(StringPool.EMPTY, ex);
+        return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage());
+    }
+
+}
