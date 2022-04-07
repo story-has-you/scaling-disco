@@ -1,6 +1,7 @@
 package com.re0.disco.common.components;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import com.re0.disco.common.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 
 /**
@@ -26,7 +27,7 @@ public class DefaultValueMetaObjectHandler implements MetaObjectHandler {
         // 判断是否有相关字段
         boolean hasCreateBy = metaObject.hasSetter(CREATE_BY);
         boolean hasUpdateBy = metaObject.hasSetter(UPDATE_BY);
-        String username = "";
+        String username = SecurityUtils.getCurrentUsername();
         // 有字段则自动填充
         if (hasCreateBy) {
             strictInsertFill(metaObject, CREATE_BY, String.class, username);
@@ -41,7 +42,7 @@ public class DefaultValueMetaObjectHandler implements MetaObjectHandler {
         Object val = getFieldValByName(UPDATE_BY, metaObject);
         // 没有自定义值时才更新字段
         if (val == null) {
-            String username = "";
+            String username = SecurityUtils.getCurrentUsername();
             strictUpdateFill(metaObject, UPDATE_BY, String.class, username);
         }
     }
