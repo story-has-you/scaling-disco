@@ -3,7 +3,6 @@ package com.re0.disco.api.config.security;
 import com.google.common.collect.Sets;
 import com.re0.disco.common.annotation.AnonymousAccess;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -37,11 +36,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource(name = "userDetailsService")
-    private UserDetailsService userDetailsService;
     private final ApplicationContext applicationContext;
     private final JwtSecurityConfigurerAdapter jwtSecurityConfigurerAdapter;
-
+    @Resource(name = "userDetailsService")
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -81,10 +81,10 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
         Assert.isTrue(current > 0, "current must be greater than or equal to 1");
         Assert.isTrue(limit > 0, "limit must be greater than 0");
         Page<Entity> page = lambdaQuery()
-                .setEntity(entity)
-                .setEntityClass((Class<Entity>) entity.getClass())
-                .orderByDesc(BaseEntity::getCreateTime)
-                .page(new Page<>(current, limit));
+            .setEntity(entity)
+            .setEntityClass((Class<Entity>) entity.getClass())
+            .orderByDesc(BaseEntity::getCreateTime)
+            .page(new Page<>(current, limit));
         return PageResponseBuilder.of(page);
     }
 
@@ -114,7 +114,7 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
      * 根据字段分组
      *
      * @param <T>       the type parameter
-     * @param values       the values
+     * @param values    the values
      * @param sFunction the s function
      * @return map map
      */

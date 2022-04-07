@@ -6,7 +6,6 @@ import com.re0.disco.domain.entity.Role;
 import com.re0.disco.mapper.RoleMapper;
 import com.re0.disco.service.RoleService;
 import com.re0.disco.service.UserRoleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

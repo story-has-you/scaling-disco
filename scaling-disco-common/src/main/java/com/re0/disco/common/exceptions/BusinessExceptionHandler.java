@@ -73,11 +73,11 @@ public class BusinessExceptionHandler {
     public Result<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
         String msg = bindingResult
-                .getFieldErrors()
-                .stream()
-                .map(FieldError::getDefaultMessage)
-                .distinct()
-                .collect(Collectors.joining(StringPool.COMMA));
+            .getFieldErrors()
+            .stream()
+            .map(FieldError::getDefaultMessage)
+            .distinct()
+            .collect(Collectors.joining(StringPool.COMMA));
         return Result.error(HttpStatus.BAD_REQUEST.value(), msg);
     }
 
@@ -91,11 +91,11 @@ public class BusinessExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Result<?> bindException(BindException ex) {
         String msg = ex.getBindingResult()
-                .getAllErrors()
-                .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .distinct()
-                .collect(Collectors.joining(StringPool.COMMA));
+            .getAllErrors()
+            .stream()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .distinct()
+            .collect(Collectors.joining(StringPool.COMMA));
         return Result.error(HttpStatus.BAD_REQUEST.value(), msg);
     }
 
