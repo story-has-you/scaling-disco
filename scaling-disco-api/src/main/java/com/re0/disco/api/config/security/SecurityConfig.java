@@ -2,8 +2,6 @@ package com.re0.disco.api.config.security;
 
 import com.google.common.collect.Sets;
 import com.re0.disco.common.annotation.AnonymousAccess;
-import com.re0.disco.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -24,7 +22,6 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Set;
 
