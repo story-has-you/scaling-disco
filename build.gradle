@@ -12,22 +12,25 @@ buildscript {
     }
 }
 
-group = 'com.re0'
-version = '0.0.1-SNAPSHOT'
+group = "com.re0"
+version = "0.0.1-SNAPSHOT"
 ext {
     lib = [
-        'hutool-all'  : 'cn.hutool:hutool-all:5.8.0.M2',
-        'guava'       : 'com.google.guava:guava:31.1-jre',
-        'mybatis-plus': 'com.baomidou:mybatis-plus-boot-starter:3.5.1',
-        'knife4j'     : 'com.github.xiaoymin:knife4j-spring-boot-starter:3.0.3'
+        "hutool-all"  : "cn.hutool:hutool-all:5.8.0.M2",
+        "guava"       : "com.google.guava:guava:31.1-jre",
+        "mybatis-plus": "com.baomidou:mybatis-plus-boot-starter:3.5.1",
+        "knife4j"     : "com.github.xiaoymin:knife4j-spring-boot-starter:3.0.3",
+        "jjwt-api"     : "io.jsonwebtoken:jjwt-api:0.11.2",
+        "jjwt-impl"    : "io.jsonwebtoken:jjwt-impl:0.11.2",
+        "jjwt-jackson"    : "io.jsonwebtoken:jjwt-jackson:0.11.2",
     ]
 }
 
 subprojects {
-    apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'java'
-    apply plugin: 'idea'
-    apply plugin: 'java-library'
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "java"
+    apply plugin: "idea"
+    apply plugin: "java-library"
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -37,16 +40,16 @@ subprojects {
         mavenLocal()
         maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
         maven {
-            url 'https://maven.aliyun.com/repository/public'
+            url "https://maven.aliyun.com/repository/public"
         }
     }
 
     // 所有的项目共用依赖
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter'
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
+        implementation "org.springframework.boot:spring-boot-starter"
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
     }
 
     dependencyManagement {
@@ -70,8 +73,8 @@ subprojects {
     }
 
     compileJava {
-        options.compilerArgs << '-parameters'
-        options.encoding = 'UTF-8'
+        options.compilerArgs << "-parameters"
+        options.encoding = "UTF-8"
         // 增量编译
         options.incremental = true
     }

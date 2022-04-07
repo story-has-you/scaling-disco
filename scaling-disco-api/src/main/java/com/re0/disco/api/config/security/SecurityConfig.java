@@ -2,16 +2,19 @@ package com.re0.disco.api.config.security;
 
 import com.google.common.collect.Sets;
 import com.re0.disco.common.annotation.AnonymousAccess;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,13 +34,13 @@ import java.util.Set;
 @SpringBootConfiguration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "userDetailsService")
     private UserDetailsService userDetailsService;
-    @Autowired
-    private ApplicationContext applicationContext;
-
+    private final ApplicationContext applicationContext;
+    private final JwtSecurityConfigurerAdapter jwtSecurityConfigurerAdapter;
 
 
     @Override
@@ -56,10 +59,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint())
             .accessDeniedHandler(accessDeniedHandler())
+            // 防止iframe 造成跨域
+            .and()
+            .headers()
+            .frameOptions()
+            .disable()
+            // 不创建会话
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+            // 静态资源等等
+            .antMatchers(
+                HttpMethod.GET,
+                "/*.html",
+                "/**/*.html",
+                "/**/*.css",
+                "/**/*.js",
+                "/webSocket/**"
+            ).permitAll()
+            // swagger 文档
+            .antMatchers("/swagger-ui.html").permitAll()
+            .antMatchers("/swagger-resources/**").permitAll()
+            .antMatchers("/webjars/**").permitAll()
+            .antMatchers("/*/api-docs").permitAll()
+            // 标记可以放行的匿名方法
             .antMatchers(getAnonymousUrls().toArray(new String[0])).permitAll()
-            .antMatchers("/api/**").authenticated();
+            // 放行OPTIONS请求
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .apply(jwtSecurityConfigurerAdapter);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.re0.disco.api.config.security;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.re0.disco.domain.entity.Role;
 import com.re0.disco.domain.entity.User;
 import lombok.Data;
@@ -51,16 +52,19 @@ public class AuthUser implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }

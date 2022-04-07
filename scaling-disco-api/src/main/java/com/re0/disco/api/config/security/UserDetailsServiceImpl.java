@@ -17,12 +17,11 @@ import java.util.List;
  * @author fangxi created by 2022/4/6
  */
 @Component("userDetailsService")
+@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
