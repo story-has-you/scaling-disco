@@ -9,7 +9,6 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractMappingJacksonResponseBodyAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 /**
  * @author fangxi created by 2022/4/6
@@ -28,7 +27,9 @@ public class ResultResponseBodyAdvice extends AbstractMappingJacksonResponseBody
 
     @Override
     protected void beforeBodyWriteInternal(MappingJacksonValue bodyContainer, MediaType contentType, MethodParameter returnType, ServerHttpRequest request, ServerHttpResponse response) {
-        Object value = bodyContainer.getValue();
-        bodyContainer.setValue(Result.ok(value));
+        if (request.getURI().getPath().startsWith("/api/")) {
+            Object value = bodyContainer.getValue();
+            bodyContainer.setValue(Result.ok(value));
+        }
     }
 }
