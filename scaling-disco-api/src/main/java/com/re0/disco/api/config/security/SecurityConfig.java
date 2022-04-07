@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,11 +17,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,8 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            //禁用表单登录，前后端分离用不上
+            .formLogin().disable()
             // 禁用 CSRF
             .csrf().disable()
+            .exceptionHandling()
+            .authenticationEntryPoint(authenticationEntryPoint())
+            .accessDeniedHandler(accessDeniedHandler())
+            .and()
             .authorizeRequests()
             .antMatchers(getAnonymousUrls().toArray(new String[0])).permitAll()
             .antMatchers("/api/**").authenticated();
@@ -77,5 +87,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             }
         });
         return anonymousUrls;
+    }
+
+    /**
+     * 这个接口当用户未通过认证访问受保护的资源
+     */
+    private AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, authException) -> response.sendError(HttpStatus.UNAUTHORIZED.value(), authException == null ? HttpStatus.UNAUTHORIZED.name() : authException.getMessage());
+    }
+
+    /**
+     * 当认证成功的用户访问受保护的资源，但是权限不够
+     */
+    private AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> response.sendError(HttpStatus.FORBIDDEN.value(), accessDeniedException == null ? HttpStatus.FORBIDDEN.name() : accessDeniedException.getMessage());
     }
 }
