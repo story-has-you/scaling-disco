@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,7 +19,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
@@ -37,7 +40,7 @@ import java.util.Set;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final ApplicationContext applicationContext;
-    private final JwtSecurityConfigurerAdapter jwtSecurityConfigurerAdapter;
+    private final TokenOncePerRequestFilter tokenOncePerRequestFilter;
     @Resource(name = "userDetailsService")
     private UserDetailsService userDetailsService;
 
@@ -88,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .anyRequest().authenticated()
             .and()
-            .apply(jwtSecurityConfigurerAdapter);
+            .apply(securitySecurityConfigurerAdapter());
     }
 
     @Override
@@ -127,5 +130,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     private AccessDeniedHandler accessDeniedHandler() {
         return (request, response, accessDeniedException) -> response.sendError(HttpStatus.FORBIDDEN.value(), accessDeniedException == null ? HttpStatus.FORBIDDEN.name() : accessDeniedException.getMessage());
+    }
+
+    /**
+     * 添加过滤器
+     */
+    private SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securitySecurityConfigurerAdapter() {
+        return new SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
+            @Override
+            public void configure(HttpSecurity http) throws Exception {
+                http.addFilterBefore(tokenOncePerRequestFilter, UsernamePasswordAuthenticationFilter.class);
+            }
+        };
     }
 }

@@ -15,4 +15,9 @@ public interface RoleService extends BaseService<Role> {
      */
     List<Role> selectByUserId(Long userId);
 
+    /**
+     * 根据角色名称查询
+     */
+    Role selectByName(String name);
+
 }

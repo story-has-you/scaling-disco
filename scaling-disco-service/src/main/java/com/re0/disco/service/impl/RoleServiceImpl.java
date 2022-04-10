@@ -1,6 +1,7 @@
 package com.re0.disco.service.impl;
 
 import com.re0.disco.common.base.BaseServiceImpl;
+import com.re0.disco.common.exceptions.BusinessException;
 import com.re0.disco.common.utils.CollectionUtils;
 import com.re0.disco.domain.entity.Role;
 import com.re0.disco.mapper.RoleMapper;
@@ -28,5 +29,10 @@ public class RoleServiceImpl extends BaseServiceImpl<RoleMapper, Role> implement
             return Collections.emptyList();
         }
         return lambdaQuery().in(Role::getId, roleIds).list();
+    }
+
+    @Override
+    public Role selectByName(String name) {
+        return lambdaQuery().eq(Role::getName, name).oneOpt().orElseThrow(() -> new BusinessException("角色不存在"));
     }
 }

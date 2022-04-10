@@ -3,14 +3,16 @@ package com.re0.disco.domain.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.re0.disco.common.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 /**
  * @author fangxi created by 2022/4/6
  * 系统菜单
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @TableName(value = "sys_menu")
 public class Menu extends BaseEntity {
@@ -29,8 +31,8 @@ public class Menu extends BaseEntity {
     /**
      * 菜单类型
      */
-    @TableField(value = "`type`")
-    private Integer type;
+    @TableField(value = "`level`")
+    private Integer level;
 
     /**
      * 菜单标题
@@ -45,6 +47,12 @@ public class Menu extends BaseEntity {
     private String componentName;
 
     /**
+     * 链接地址
+     */
+    @TableField(value = "component_path")
+    private String componentPath;
+
+    /**
      * 排序
      */
     @TableField(value = "sort")
@@ -55,12 +63,6 @@ public class Menu extends BaseEntity {
      */
     @TableField(value = "icon")
     private String icon;
-
-    /**
-     * 链接地址
-     */
-    @TableField(value = "`path`")
-    private String path;
 
     /**
      * 权限
