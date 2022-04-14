@@ -39,11 +39,10 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
         // 构建菜单树
         List<MenuVO> menuVOList = Lists.newArrayList();
         List<Menu> rootMenuList = menus.stream().filter(menu -> Objects.isNull(menu.getPid())).collect(Collectors.toList());
-        rootMenuList.stream().map(MenuVO::new).forEach(menuVO -> {
+        rootMenuList.stream().map(MenuVO::new).peek(menuVO -> {
             List<MenuVO> routes = this.buildMenuTree(menus, menuVO);
             menuVO.setRoutes(routes);
-            menuVOList.add(menuVO);
-        });
+        }).forEach(menuVOList::add);
         return menuVOList;
     }
 
