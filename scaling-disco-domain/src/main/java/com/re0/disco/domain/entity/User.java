@@ -51,8 +51,8 @@ public class User extends BaseEntity {
     /**
      * 头像地址
      */
-    @TableField(value = "avatar_name")
-    private String avatarName;
+    @TableField(value = "avatar")
+    private String avatar;
 
     /**
      * 是否为admin账号

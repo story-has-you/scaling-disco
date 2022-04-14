@@ -6,9 +6,7 @@ import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -24,16 +22,18 @@ public class ScalingDiscoWebMvcConfig implements WebMvcConfigurer {
     /**
      * 跨域配置
      */
-    @Bean
-    public CorsFilter corsFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin(StringPool.ASTERISK);
-        config.setAllowCredentials(true);
-        config.addAllowedMethod(StringPool.ASTERISK);
-        config.addAllowedHeader(StringPool.ASTERISK);
-        UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
-        configSource.registerCorsConfiguration("/**", config);
-        return new CorsFilter(configSource);
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        // 设置允许跨域的路由
+        registry.addMapping("/**")
+            // 设置允许跨域请求的域名------------修改此行
+            .allowedOriginPatterns(StringPool.ASTERISK)
+            // 是否允许证书（cookies）
+            .allowCredentials(true)
+            // 设置允许的方法
+            .allowedMethods(StringPool.ASTERISK)
+            // 跨域允许时间
+            .maxAge(3600);
     }
 
     /**

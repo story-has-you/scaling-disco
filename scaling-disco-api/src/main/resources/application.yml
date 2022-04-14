@@ -24,6 +24,8 @@ mybatis-plus:
     banner: false
     db-config:
       id-type: assign_id
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.re0.disco.mapper: debug
 

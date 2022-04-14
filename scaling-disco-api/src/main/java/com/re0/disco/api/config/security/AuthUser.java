@@ -24,11 +24,15 @@ public class AuthUser implements UserDetails {
     private Boolean enabled;
     private String password;
 
+    private String avatar;
+
+
     public AuthUser(User user, List<Role> roles) {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.enabled = user.getEnabled();
         this.authorities = roles.stream().map(Role::getName).map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+        this.avatar = user.getAvatar();
     }
 
     @Override

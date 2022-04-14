@@ -10,7 +10,7 @@
         <result column="gender" jdbcType="INTEGER" property="gender"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="avatar_name" jdbcType="VARCHAR" property="avatarName"/>
+        <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="is_admin" jdbcType="BOOLEAN" property="isAdmin"/>
         <result column="enabled" jdbcType="BOOLEAN" property="enabled"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
@@ -21,7 +21,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, username, `password`, gender, phone, email, avatar_name, is_admin, enabled, create_by,
+        id, username, `password`, gender, phone, email, avatar, is_admin, enabled, create_by,
         update_by, pwd_reset_time, create_time, update_time
     </sql>
 </mapper>

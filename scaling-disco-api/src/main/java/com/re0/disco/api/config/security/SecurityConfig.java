@@ -91,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .anyRequest().authenticated()
             .and()
-            .apply(securitySecurityConfigurerAdapter());
+            .apply(securityConfigurerAdapter());
     }
 
     @Override
@@ -135,7 +135,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 添加过滤器
      */
-    private SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securitySecurityConfigurerAdapter() {
+    private SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> securityConfigurerAdapter() {
         return new SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity>() {
             @Override
             public void configure(HttpSecurity http) throws Exception {
