@@ -3,6 +3,7 @@ dependencies {
     implementation "${lib.'guava'}"
     implementation "${lib.'mybatis-plus'}"
     implementation "${lib.'knife4j'}"
+    implementation project(":scaling-disco-domain")
     implementation 'org.springframework.boot:spring-boot-starter-json'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-security'

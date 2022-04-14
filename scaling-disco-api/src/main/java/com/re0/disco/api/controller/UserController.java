@@ -1,12 +1,12 @@
 package com.re0.disco.api.controller;
 
-import com.re0.disco.api.config.security.AuthUser;
 import com.re0.disco.api.config.security.TokenProvider;
 import com.re0.disco.common.annotation.AnonymousAccess;
 import com.re0.disco.common.base.BaseController;
 import com.re0.disco.common.utils.BeanUtils;
 import com.re0.disco.common.utils.SecurityUtils;
 import com.re0.disco.domain.entity.User;
+import com.re0.disco.domain.model.AuthUser;
 import com.re0.disco.domain.vo.request.LoginUserVO;
 import com.re0.disco.service.UserService;
 import io.swagger.annotations.Api;
@@ -54,6 +54,6 @@ public class UserController extends BaseController<User, UserService> {
     @ApiOperation("获取当前登录用户")
     @GetMapping("/current")
     public AuthUser currentLoginUser() {
-        return (AuthUser) SecurityUtils.getCurrentUser();
+        return SecurityUtils.getCurrentUser();
     }
 }

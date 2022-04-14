@@ -2,6 +2,7 @@ package com.re0.disco.common.base;
 
 import com.re0.disco.common.result.PageRequest;
 import com.re0.disco.common.result.PageResponse;
+import com.re0.disco.domain.entity.BaseEntity;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;

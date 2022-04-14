@@ -17,13 +17,13 @@ public class MenuServiceTest extends ScalingDiscoApplicationTest {
     @Test
     public void save() {
         Menu menu = Menu.builder()
-            .pid(null)
+            .pid(1512983993962737665L)
             .subCount(0)
-            .level(1)
-            .title("仪表盘")
-            .componentName("Dashboard")
-            .componentPath("/dashboard")
-            .icon("dashboard")
+            .level(2)
+            .title("仪表盘1")
+            .componentName("Dashboard1")
+            .path("/dashboard1")
+            .icon("dashboard1")
             .sort(1)
             .build();
         menuService.save(menu);

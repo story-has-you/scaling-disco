@@ -1,4 +1,4 @@
-package com.re0.disco.common.base;
+package com.re0.disco.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

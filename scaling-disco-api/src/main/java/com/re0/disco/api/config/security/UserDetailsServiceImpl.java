@@ -2,6 +2,7 @@ package com.re0.disco.api.config.security;
 
 import com.re0.disco.domain.entity.Role;
 import com.re0.disco.domain.entity.User;
+import com.re0.disco.domain.model.AuthUser;
 import com.re0.disco.service.RoleService;
 import com.re0.disco.service.UserService;
 import lombok.RequiredArgsConstructor;

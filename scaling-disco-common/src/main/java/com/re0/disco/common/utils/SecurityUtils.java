@@ -1,6 +1,7 @@
 package com.re0.disco.common.utils;
 
 import com.re0.disco.common.exceptions.BusinessException;
+import com.re0.disco.domain.model.AuthUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,9 +17,9 @@ public class SecurityUtils {
      *
      * @return UserDetails
      */
-    public static UserDetails getCurrentUser() {
+    public static AuthUser getCurrentUser() {
         UserDetailsService userDetailsService = SpringContextHolder.getBean(UserDetailsService.class);
-        return userDetailsService.loadUserByUsername(getCurrentUsername());
+        return (AuthUser) userDetailsService.loadUserByUsername(getCurrentUsername());
     }
 
     /**

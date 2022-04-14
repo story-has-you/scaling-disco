@@ -2,7 +2,6 @@ package com.re0.disco.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.re0.disco.common.base.BaseEntity;
 import lombok.*;
 
 /**

@@ -2,7 +2,6 @@ package com.re0.disco.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.re0.disco.common.base.BaseEntity;
 import lombok.*;
 
 /**
@@ -49,8 +48,8 @@ public class Menu extends BaseEntity {
     /**
      * 链接地址
      */
-    @TableField(value = "component_path")
-    private String componentPath;
+    @TableField(value = "path")
+    private String path;
 
     /**
      * 排序

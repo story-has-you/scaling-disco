@@ -12,7 +12,7 @@
         <result column="component_name" jdbcType="VARCHAR" property="componentName"/>
         <result column="sort" jdbcType="INTEGER" property="sort"/>
         <result column="icon" jdbcType="VARCHAR" property="icon"/>
-        <result column="component_path" jdbcType="VARCHAR" property="componentPath"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="permission" jdbcType="VARCHAR" property="permission"/>
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
@@ -21,7 +21,7 @@
     </resultMap>
     <sql id="Base_Column_List">
         <!--@mbg.generated-->
-        id, pid, sub_count, `level`, title, component_name, sort, icon, component_path, permission,
+        id, pid, sub_count, `level`, title, component_name, sort, icon, `path`, permission,
         create_by, update_by, create_time, update_time
     </sql>
 </mapper>

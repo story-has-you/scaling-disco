@@ -1,4 +1,4 @@
-package com.re0.disco.api.config.security;
+package com.re0.disco.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.re0.disco.domain.entity.Role;
@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @Data
 public class AuthUser implements UserDetails {
 
+    private Long id;
     private String username;
     private Set<GrantedAuthority> authorities;
     private Boolean enabled;
@@ -28,6 +29,7 @@ public class AuthUser implements UserDetails {
 
 
     public AuthUser(User user, List<Role> roles) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.enabled = user.getEnabled();

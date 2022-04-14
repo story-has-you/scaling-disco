@@ -32,7 +32,7 @@ public class RoleServiceTest extends ScalingDiscoApplicationTest {
     public void bandRoleMenu() {
         RoleMenu roleMenu = RoleMenu.builder()
             .roleId(1512974750371065857L)
-            .menuId(1512983993962737665L)
+            .menuId(1514614440668999681L)
             .build();
         roleMenuService.save(roleMenu);
     }

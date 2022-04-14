@@ -20,4 +20,8 @@ public interface RoleService extends BaseService<Role> {
      */
     Role selectByName(String name);
 
+    /**
+     * 查询当前登录用户的角色列表
+     */
+    List<Role> selectByCurrentUser();
 }

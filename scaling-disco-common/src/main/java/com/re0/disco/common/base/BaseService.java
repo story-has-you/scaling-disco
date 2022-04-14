@@ -8,12 +8,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.re0.disco.common.exceptions.BusinessException;
 import com.re0.disco.common.result.PageResponse;
 import com.re0.disco.common.result.PageResponseBuilder;
+import com.re0.disco.domain.entity.BaseEntity;
 import org.springframework.util.Assert;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -106,7 +104,7 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
      * @param ids the ids
      * @return map map
      */
-    default Map<Long, Entity> grouping(List<Long> ids) {
+    default Map<Long, Entity> grouping(Collection<Long> ids) {
         return grouping(BaseEntity::getId, ids);
     }
 
@@ -118,7 +116,7 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
      * @param sFunction the s function
      * @return map map
      */
-    default <T> Map<T, Entity> grouping(SFunction<Entity, T> sFunction, List<T> values) {
+    default <T> Map<T, Entity> grouping(SFunction<Entity, T> sFunction, Collection<T> values) {
         List<Entity> entities = lambdaQuery().in(sFunction, values).list();
         if (CollectionUtils.isEmpty(entities)) {
             return Collections.emptyMap();
