@@ -21,4 +21,9 @@ public class RoleMenuServiceImpl extends BaseServiceImpl<RoleMenuMapper, RoleMen
         List<RoleMenu> roleMenuList = lambdaQuery().in(RoleMenu::getRoleId, roleIds).select(RoleMenu::getMenuId).list();
         return CollectionUtils.isEmpty(roleMenuList) ? Collections.emptyList() : CollectionUtils.map(roleMenuList, RoleMenu::getMenuId);
     }
+
+    @Override
+    public boolean removeByRoleId(Long roleId) {
+        return lambdaUpdate().eq(RoleMenu::getRoleId, roleId).remove();
+    }
 }

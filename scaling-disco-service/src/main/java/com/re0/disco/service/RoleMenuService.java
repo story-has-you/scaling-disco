@@ -12,4 +12,6 @@ public interface RoleMenuService extends BaseService<RoleMenu> {
 
     List<Long> selectMenuIdsByRoleIds(List<Long> roleIds);
 
+    boolean removeByRoleId(Long roleId);
+
 }

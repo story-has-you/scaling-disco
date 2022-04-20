@@ -28,6 +28,11 @@ public class Menu extends BaseEntity {
     private Integer subCount;
 
     /**
+     * 1.一级菜单, 2.二级菜单, 3.按钮
+     */
+    @TableField(value = "type")
+    private Integer type;
+    /**
      * 菜单类型
      */
     @TableField(value = "`level`")
