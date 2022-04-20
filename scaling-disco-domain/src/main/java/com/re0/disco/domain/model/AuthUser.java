@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class AuthUser implements UserDetails {
 
     private Long id;
-    private String username;
+    private String name;
     private Set<GrantedAuthority> authorities;
     private Boolean enabled;
     private String password;
@@ -30,7 +30,7 @@ public class AuthUser implements UserDetails {
 
     public AuthUser(User user, List<Role> roles) {
         this.id = user.getId();
-        this.username = user.getUsername();
+        this.name = user.getUsername();
         this.password = user.getPassword();
         this.enabled = user.getEnabled();
         this.authorities = roles.stream().map(Role::getName).map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
@@ -48,8 +48,9 @@ public class AuthUser implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
-        return this.username;
+        return this.name;
     }
 
     @Override
