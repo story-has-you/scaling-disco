@@ -19,5 +19,4 @@ public abstract class BaseServiceImpl<Mapper extends BaseMapper<Entity>, Entity 
      * The Log.
      */
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
-
 }
