@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.re0.disco.common.exceptions.BusinessException;
+import com.re0.disco.common.result.PageRequest;
 import com.re0.disco.common.result.PageResponse;
 import com.re0.disco.common.result.PageResponseBuilder;
 import com.re0.disco.domain.entity.BaseEntity;
-import org.springframework.util.Assert;
 
 import java.util.*;
 import java.util.function.Function;
@@ -37,9 +37,9 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
     /**
      * 获取
      *
-     * @param column
-     * @param value
-     * @return
+     * @param column the column
+     * @param value  the value
+     * @return entity
      */
     default Entity get(SFunction<Entity, ?> column, Object value) {
         return lambdaQuery().eq(column, value).one();
@@ -48,9 +48,9 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
     /**
      * 获取
      *
-     * @param column
-     * @param value
-     * @return
+     * @param column the column
+     * @param value  the value
+     * @return opt
      */
     default Optional<Entity> getOpt(SFunction<Entity, ?> column, Object value) {
         return Optional.ofNullable(get(column, value));
@@ -70,31 +70,27 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
     /**
      * 分页
      *
-     * @param current {@code int} 页码
-     * @param limit   {@code int} 笔数
-     * @param entity  领域模型
+     * @param pageRequest the page request
+     * @param entity      领域模型
      * @return 管理员分页数据 page response
      */
-    default PageResponse<Entity> page(int current, int limit, Entity entity) {
-        Assert.isTrue(current > 0, "current must be greater than or equal to 1");
-        Assert.isTrue(limit > 0, "limit must be greater than 0");
+    default PageResponse<Entity> page(PageRequest pageRequest, Entity entity) {
         Page<Entity> page = lambdaQuery()
             .setEntity(entity)
-            .setEntityClass((Class<Entity>) entity.getClass())
+            .setEntityClass((entity == null) ? null : (Class<Entity>) entity.getClass())
             .orderByDesc(BaseEntity::getCreateTime)
-            .page(new Page<>(current, limit));
+            .page(new Page<>(pageRequest.getCurrent(), pageRequest.getLimit()));
         return PageResponseBuilder.of(page);
     }
 
     /**
      * 分页
      *
-     * @param current {@code int} 页码
-     * @param limit   {@code int} 笔数
+     * @param pageRequest the page request
      * @return the page response
      */
-    default PageResponse<Entity> page(int current, int limit) {
-        return page(current, limit, null);
+    default PageResponse<Entity> page(PageRequest pageRequest) {
+        return page(pageRequest, null);
     }
 
 
@@ -112,8 +108,8 @@ public interface BaseService<Entity extends BaseEntity> extends IService<Entity>
      * 根据字段分组
      *
      * @param <T>       the type parameter
-     * @param values    the values
      * @param sFunction the s function
+     * @param values    the values
      * @return map map
      */
     default <T> Map<T, Entity> grouping(SFunction<Entity, T> sFunction, Collection<T> values) {

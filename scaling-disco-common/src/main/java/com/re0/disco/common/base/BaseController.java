@@ -56,6 +56,6 @@ public abstract class BaseController<Entity extends BaseEntity, Service extends 
     @GetMapping("/page")
     public PageResponse<Entity> page(@ModelAttribute @Validated PageRequest pageRequest,
                                      @ModelAttribute Entity entity) {
-        return baseService.page(pageRequest.getCurrent(), pageRequest.getLimit(), entity);
+        return baseService.page(pageRequest, entity);
     }
 }

@@ -27,4 +27,8 @@ public class PageRequest implements Serializable {
     @NotNull(message = "请传入每页数量")
     private Integer limit;
 
+    public static PageRequest of(Integer current, Integer limit) {
+        return new PageRequest(current, limit);
+    }
+
 }
