@@ -25,12 +25,4 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
         }
         return super.save(entity);
     }
-
-    @Override
-    public boolean updateById(User entity) {
-        if (exists(User::getUsername, entity.getUsername())) {
-            throw new BusinessException("用户已存在");
-        }
-        return super.updateById(entity);
-    }
 }
